@@ -143,6 +143,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Project:</strong> Promoting Resilient Strong Hearts and Minds</p>
 <p><strong>Institution:</strong> University of Nebraska-Lincoln</p>
 <p><strong>Updated:</strong></p>
+<p>2/15/2024</p>
+<ul>
+<li>Demographics now report exclusive racial identity, instead of select all.</li>
+</ul>
 <p>2/5/2024</p>
 <ul>
 <li>Results of RQ3 were updated</li>
@@ -212,79 +216,147 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="demographic-table" class="level1">
 <h1>Demographic Table</h1>
+<p>(2/15/2024) Race will be reported as “exclusive” instead of “select all.” As such a new variable will be created.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summarize the data with our package</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>selected_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"y0age"</span>, <span class="st">"y1sex"</span>, <span class="st">"y1gen"</span>, <span class="st">"y1rac1"</span>, <span class="st">"y1rac2"</span>, <span class="st">"y1rac3"</span>, <span class="st">"y1rac4"</span>, <span class="st">"y1rac5"</span>, <span class="st">"y1rac999"</span>, <span class="st">"y0scr06"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dem_data <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, <span class="at">select =</span> selected_vars)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Factor to see labels</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y0age <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dem_data<span class="sc">$</span>y0age)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y1sex <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y1sex)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y1gen <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y1gen)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y1His <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y1His)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y1rac1 <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y1rac1)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y1rac2 <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y1rac2)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y1rac3 <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y1rac3)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y1rac4 <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y1rac4)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y1rac5 <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y1rac5)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y1rac999 <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y1rac999)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y0scr06 <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y0scr06)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">###</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>table1 <span class="ot">&lt;-</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  dem_data <span class="sc">%&gt;%</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">list</span>(</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>     y0age <span class="sc">~</span> <span class="st">"Age"</span>, </span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      y1gen <span class="sc">~</span> <span class="st">"Gender"</span>, </span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      y1rac1 <span class="sc">~</span> <span class="st">"American Indian/Alaska Native"</span>, </span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      y1rac2 <span class="sc">~</span> <span class="st">"Asian"</span>, </span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      y1rac3 <span class="sc">~</span> <span class="st">"Black/African American"</span>, </span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>      y1rac4 <span class="sc">~</span> <span class="st">"White"</span>, </span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>      y1rac5 <span class="sc">~</span> <span class="st">"Native Hawaiian/Other Pacific Islander"</span>, </span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>      y1rac999 <span class="sc">~</span> <span class="st">"Don't want to answer"</span>, </span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>      y0scr06 <span class="sc">~</span> <span class="st">"Sexual Orientation"</span>),</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing =</span> <span class="st">"no"</span>,</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">list</span>(</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>      y0age <span class="sc">~</span> <span class="st">"continuous2"</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">list</span>(</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({sd})"</span>,</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{n} ({p}%)"</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="dv">2</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_header</span>(<span class="at">label =</span> <span class="st">""</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_caption</span>(<span class="st">"*Demographic Table* (N = {N})"</span>)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="do">###</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">%&gt;%</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_flex_table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data<span class="sc">$</span>y1rac4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="tabwid"><style>.cl-2c0dcdf6{}.cl-2c0ac0f2{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2c0ac110{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2c0ac111{font-family:'Helvetica';font-size:6.6pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;bottom:3.3pt;}.cl-2c0bf206{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2c0bf210{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2c0bf211{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2c0bf212{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2c0bf213{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:15pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2c0bf21a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2c0bfc4c{width:5.108in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc4d{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc4e{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc56{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc57{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc60{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc61{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc62{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc6a{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc6b{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc6c{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc74{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc75{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc76{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc7e{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc7f{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc80{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc88{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc89{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc8a{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc92{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc93{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc94{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc95{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfc9c{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfca6{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfca7{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfca8{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfca9{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfcaa{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfcb0{width:5.108in;background-color:transparent;vertical-align: top;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfcb1{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfcb2{width:5.108in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c0bfcb3{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-2c0dcdf6"><thead><tr style="overflow-wrap:break-word;"><th class="cl-2c0bfc4c"><p class="cl-2c0bf206"><span class="cl-2c0ac0f2"></span></p></th><th class="cl-2c0bfc4d"><p class="cl-2c0bf210"><span class="cl-2c0ac110">N = 304</span><span class="cl-2c0ac111">1</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc4e"><p class="cl-2c0bf211"><span class="cl-2c0ac0f2">Age</span></p></td><td class="cl-2c0bfc56"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc57"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Mean (SD)</span></p></td><td class="cl-2c0bfc60"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">16.53 (0.89)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc61"><p class="cl-2c0bf211"><span class="cl-2c0ac0f2">What was your sex assigned at birth? (What’s on your birth certificate?)</span></p></td><td class="cl-2c0bfc62"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Male</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">53 (18%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Female</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">248 (82%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Intersex</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">0 (0%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">I don't want to answer this question</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">0 (0%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6c"><p class="cl-2c0bf211"><span class="cl-2c0ac0f2">Gender</span></p></td><td class="cl-2c0bfc74"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Boy/man</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">47 (16%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Girl/woman</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">96 (32%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Trans</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">1 (0.3%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc75"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Genderqueer</span></p></td><td class="cl-2c0bfc76"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">24 (7.9%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc7e"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Non-binary</span></p></td><td class="cl-2c0bfc7f"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">55 (18%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc4e"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Unsure/questioning</span></p></td><td class="cl-2c0bfc56"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">8 (2.6%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc80"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Other (please type in)</span></p></td><td class="cl-2c0bfc88"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">30 (9.9%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc4e"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Trans girl/woman</span></p></td><td class="cl-2c0bfc56"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">2 (0.7%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc7e"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Trans boy/man</span></p></td><td class="cl-2c0bfc7f"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">39 (13%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">I don’t want to answer this question</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">0 (0%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc89"><p class="cl-2c0bf211"><span class="cl-2c0ac0f2">American Indian/Alaska Native</span></p></td><td class="cl-2c0bfc8a"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">American Indian or Alaska Native</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">18 (100%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc92"><p class="cl-2c0bf211"><span class="cl-2c0ac0f2">Asian</span></p></td><td class="cl-2c0bfc93"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Asian</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">39 (100%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc94"><p class="cl-2c0bf211"><span class="cl-2c0ac0f2">Black/African American</span></p></td><td class="cl-2c0bfc95"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Black or African American</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">72 (100%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc9c"><p class="cl-2c0bf211"><span class="cl-2c0ac0f2">White</span></p></td><td class="cl-2c0bfca6"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">White</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">196 (100%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfca7"><p class="cl-2c0bf211"><span class="cl-2c0ac0f2">Native Hawaiian/Other Pacific Islander</span></p></td><td class="cl-2c0bfca8"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Native Hawaiian or Other Pacific Islander</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">4 (100%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc92"><p class="cl-2c0bf211"><span class="cl-2c0ac0f2">Don't want to answer</span></p></td><td class="cl-2c0bfc93"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">I don't want to answer this question</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">18 (100%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfca7"><p class="cl-2c0bf211"><span class="cl-2c0ac0f2">Sexual Orientation</span></p></td><td class="cl-2c0bfca8"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc57"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Heterosexual/straight</span></p></td><td class="cl-2c0bfc60"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">1 (0.3%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc80"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Gay</span></p></td><td class="cl-2c0bfc88"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">41 (13%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Lesbian</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">35 (12%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Bisexual</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">93 (31%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Pansexual</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">68 (22%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Queer</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">35 (12%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Asexual</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">8 (2.6%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Demisexual</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">2 (0.7%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfca9"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Questioning/Unsure of my sexual orientation</span></p></td><td class="cl-2c0bfcaa"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">11 (3.6%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc80"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Choose to self-identify</span></p></td><td class="cl-2c0bfc88"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">10 (3.3%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc57"><p class="cl-2c0bf211"><span class="cl-2c0ac0f2">Are you Hispanic or Latino/Latina/Latinx?</span></p></td><td class="cl-2c0bfc60"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">No</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">233 (78%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfc6a"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">Yes</span></p></td><td class="cl-2c0bfc6b"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">64 (22%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c0bfcb0"><p class="cl-2c0bf213"><span class="cl-2c0ac0f2">I don't want to answer this question</span></p></td><td class="cl-2c0bfcb1"><p class="cl-2c0bf212"><span class="cl-2c0ac0f2">0 (0%)</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td colspan="2" class="cl-2c0bfcb2"><p class="cl-2c0bf21a"><span class="cl-2c0ac111">1</span><span class="cl-2c0ac0f2">n (%)</span></p></td></tr></tfoot></table></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> dbl+lbl [1:304] NA,  1,  1,  1,  1,  1, NA,  1, NA, NA,  1, NA, NA,  1, NA...
+ @ label        : chr "How would you describe yourself? (Select ALL that apply) White"
+ @ format.spss  : chr "F40.0"
+ @ display_width: int 5
+ @ labels       : Named num 1
+  ..- attr(*, "names")= chr "White"</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">%&gt;%</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_flex_table</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">save_as_docx</span>(table1, <span class="at">path =</span> <span class="st">"bystander_dem_table.docx"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ct1 <span class="ot">=</span> <span class="fu">crosstable</span>(dem_data, <span class="fu">c</span>(y1gen), <span class="at">by =</span> <span class="fu">c</span>(y1sex), <span class="at">total=</span><span class="st">"both"</span>, <span class="at">percent_pattern=</span><span class="st">"{n} ({p_row})"</span>, <span class="at">percent_digits=</span><span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_flextable</span>()</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>ct1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y1rac4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div class="tabwid"><style>.cl-2c62aa56{}.cl-2c5ffae0{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2c5ffaea{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2c61037c{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2c61037d{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2c610b6a{width:2.986in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b74{width:2.672in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b75{width:0.905in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b7e{width:0.99in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b7f{width:0.871in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b88{width:2.876in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b89{width:0.506in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b8a{width:1.075in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b92{width:2.986in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b93{width:2.672in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b94{width:0.905in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b9c{width:0.99in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b9d{width:0.871in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610b9e{width:2.876in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610ba6{width:0.506in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610ba7{width:1.075in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610ba8{width:2.986in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610ba9{width:2.672in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bb0{width:0.905in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bb1{width:0.99in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bb2{width:0.871in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bba{width:2.876in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bbb{width:0.506in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bbc{width:1.075in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bc4{width:2.986in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bc5{width:2.672in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bce{width:0.905in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bcf{width:0.99in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bd0{width:0.871in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bd8{width:2.876in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bd9{width:0.506in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c610bda{width:1.075in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-2c62aa56"><thead><tr style="overflow-wrap:break-word;"><th rowspan="2" class="cl-2c610b6a"><p class="cl-2c61037c"><span class="cl-2c5ffae0">label</span></p></th><th rowspan="2" class="cl-2c610b74"><p class="cl-2c61037c"><span class="cl-2c5ffae0">variable</span></p></th><th colspan="5" class="cl-2c610b75"><p class="cl-2c61037c"><span class="cl-2c5ffae0">What was your sex assigned at birth? (What’s on your birth certificate?)</span></p></th><th rowspan="2" class="cl-2c610b8a"><p class="cl-2c61037c"><span class="cl-2c5ffae0">Total</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-2c610b94"><p class="cl-2c61037c"><span class="cl-2c5ffae0">Male</span></p></th><th class="cl-2c610b9c"><p class="cl-2c61037c"><span class="cl-2c5ffae0">Female</span></p></th><th class="cl-2c610b9d"><p class="cl-2c61037c"><span class="cl-2c5ffae0">Intersex</span></p></th><th class="cl-2c610b9e"><p class="cl-2c61037c"><span class="cl-2c5ffae0">I don't want to answer this question</span></p></th><th class="cl-2c610ba6"><p class="cl-2c61037c"><span class="cl-2c5ffae0">NA</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td rowspan="12" class="cl-2c610ba8"><p class="cl-2c61037d"><span class="cl-2c5ffaea">What is your gender? - Selected Choice</span></p></td><td class="cl-2c610ba9"><p class="cl-2c61037d"><span class="cl-2c5ffaea">Boy/man</span></p></td><td class="cl-2c610bb0"><p class="cl-2c61037d"><span class="cl-2c5ffaea">36 (77%)</span></p></td><td class="cl-2c610bb1"><p class="cl-2c61037d"><span class="cl-2c5ffaea">11 (23%)</span></p></td><td class="cl-2c610bb2"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bba"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bbb"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0</span></p></td><td class="cl-2c610bbc"><p class="cl-2c61037d"><span class="cl-2c5ffaea">47 (16%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c610ba9"><p class="cl-2c61037d"><span class="cl-2c5ffaea">Girl/woman</span></p></td><td class="cl-2c610bb0"><p class="cl-2c61037d"><span class="cl-2c5ffaea">1 (1%)</span></p></td><td class="cl-2c610bb1"><p class="cl-2c61037d"><span class="cl-2c5ffaea">95 (99%)</span></p></td><td class="cl-2c610bb2"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bba"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bbb"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0</span></p></td><td class="cl-2c610bbc"><p class="cl-2c61037d"><span class="cl-2c5ffaea">96 (32%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c610ba9"><p class="cl-2c61037d"><span class="cl-2c5ffaea">Trans</span></p></td><td class="cl-2c610bb0"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bb1"><p class="cl-2c61037d"><span class="cl-2c5ffaea">1 (100%)</span></p></td><td class="cl-2c610bb2"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bba"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bbb"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0</span></p></td><td class="cl-2c610bbc"><p class="cl-2c61037d"><span class="cl-2c5ffaea">1 (0.3%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c610ba9"><p class="cl-2c61037d"><span class="cl-2c5ffaea">Genderqueer</span></p></td><td class="cl-2c610bb0"><p class="cl-2c61037d"><span class="cl-2c5ffaea">5 (21%)</span></p></td><td class="cl-2c610bb1"><p class="cl-2c61037d"><span class="cl-2c5ffaea">19 (79%)</span></p></td><td class="cl-2c610bb2"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bba"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bbb"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0</span></p></td><td class="cl-2c610bbc"><p class="cl-2c61037d"><span class="cl-2c5ffaea">24 (8%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c610ba9"><p class="cl-2c61037d"><span class="cl-2c5ffaea">Non-binary</span></p></td><td class="cl-2c610bb0"><p class="cl-2c61037d"><span class="cl-2c5ffaea">6 (11%)</span></p></td><td class="cl-2c610bb1"><p class="cl-2c61037d"><span class="cl-2c5ffaea">48 (89%)</span></p></td><td class="cl-2c610bb2"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bba"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bbb"><p class="cl-2c61037d"><span class="cl-2c5ffaea">1</span></p></td><td class="cl-2c610bbc"><p class="cl-2c61037d"><span class="cl-2c5ffaea">55 (18%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c610ba9"><p class="cl-2c61037d"><span class="cl-2c5ffaea">Unsure/questioning</span></p></td><td class="cl-2c610bb0"><p class="cl-2c61037d"><span class="cl-2c5ffaea">1 (12%)</span></p></td><td class="cl-2c610bb1"><p class="cl-2c61037d"><span class="cl-2c5ffaea">7 (88%)</span></p></td><td class="cl-2c610bb2"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bba"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bbb"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0</span></p></td><td class="cl-2c610bbc"><p class="cl-2c61037d"><span class="cl-2c5ffaea">8 (3%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c610ba9"><p class="cl-2c61037d"><span class="cl-2c5ffaea">Other (please type in)</span></p></td><td class="cl-2c610bb0"><p class="cl-2c61037d"><span class="cl-2c5ffaea">2 (7%)</span></p></td><td class="cl-2c610bb1"><p class="cl-2c61037d"><span class="cl-2c5ffaea">28 (93%)</span></p></td><td class="cl-2c610bb2"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bba"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bbb"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0</span></p></td><td class="cl-2c610bbc"><p class="cl-2c61037d"><span class="cl-2c5ffaea">30 (10%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c610ba9"><p class="cl-2c61037d"><span class="cl-2c5ffaea">Trans girl/woman</span></p></td><td class="cl-2c610bb0"><p class="cl-2c61037d"><span class="cl-2c5ffaea">2 (100%)</span></p></td><td class="cl-2c610bb1"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bb2"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bba"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bbb"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0</span></p></td><td class="cl-2c610bbc"><p class="cl-2c61037d"><span class="cl-2c5ffaea">2 (1%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c610ba9"><p class="cl-2c61037d"><span class="cl-2c5ffaea">Trans boy/man</span></p></td><td class="cl-2c610bb0"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bb1"><p class="cl-2c61037d"><span class="cl-2c5ffaea">38 (100%)</span></p></td><td class="cl-2c610bb2"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bba"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bbb"><p class="cl-2c61037d"><span class="cl-2c5ffaea">1</span></p></td><td class="cl-2c610bbc"><p class="cl-2c61037d"><span class="cl-2c5ffaea">39 (13%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c610ba9"><p class="cl-2c61037d"><span class="cl-2c5ffaea">I don’t want to answer this question</span></p></td><td class="cl-2c610bb0"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (NA%)</span></p></td><td class="cl-2c610bb1"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (NA%)</span></p></td><td class="cl-2c610bb2"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (NA%)</span></p></td><td class="cl-2c610bba"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (NA%)</span></p></td><td class="cl-2c610bbb"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0</span></p></td><td class="cl-2c610bbc"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c610ba9"><p class="cl-2c61037d"><span class="cl-2c5ffaea">NA</span></p></td><td class="cl-2c610bb0"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0</span></p></td><td class="cl-2c610bb1"><p class="cl-2c61037d"><span class="cl-2c5ffaea">1</span></p></td><td class="cl-2c610bb2"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0</span></p></td><td class="cl-2c610bba"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0</span></p></td><td class="cl-2c610bbb"><p class="cl-2c61037d"><span class="cl-2c5ffaea">1</span></p></td><td class="cl-2c610bbc"><p class="cl-2c61037d"><span class="cl-2c5ffaea">2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2c610bc5"><p class="cl-2c61037d"><span class="cl-2c5ffaea">Total</span></p></td><td class="cl-2c610bce"><p class="cl-2c61037d"><span class="cl-2c5ffaea">53 (18%)</span></p></td><td class="cl-2c610bcf"><p class="cl-2c61037d"><span class="cl-2c5ffaea">248 (82%)</span></p></td><td class="cl-2c610bd0"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bd8"><p class="cl-2c61037d"><span class="cl-2c5ffaea">0 (0%)</span></p></td><td class="cl-2c610bd9"><p class="cl-2c61037d"><span class="cl-2c5ffaea">3</span></p></td><td class="cl-2c610bda"><p class="cl-2c61037d"><span class="cl-2c5ffaea">304 (100%)</span></p></td></tr></tbody></table></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;labelled&lt;double&gt;[304]&gt;: How would you describe yourself? (Select ALL that apply) White
+  [1] NA  1  1  1  1  1 NA  1 NA NA  1 NA NA  1 NA  1  1  1  1 NA  1  1 NA  1  1
+ [26]  1  1  1 NA NA NA  1 NA  1  1  1  1 NA  1  1  1 NA  1 NA  1  1  1  1 NA  1
+ [51] NA  1  1 NA  1  1  1  1  1  1 NA  1  1  1 NA  1  1 NA  1  1 NA  1  1  1 NA
+ [76]  1  1  1  1  1 NA  1  1 NA  1  1  1  1 NA NA  1  1  1  1  1  1  1  1  1  1
+[101] NA  1  1  1  1  1 NA  1 NA  1 NA NA NA NA NA NA NA NA NA  1  1 NA NA  1  1
+[126]  1 NA  1 NA  1 NA NA NA NA NA NA  1  1  1  1 NA NA  1 NA NA  1 NA  1 NA  1
+[151] NA  1  1  1 NA  1  1 NA  1 NA NA  1  1  1 NA  1 NA  1  1  1  1  1  1  1  1
+[176]  1  1  1  1  1  1  1  1 NA  1  1 NA NA  1  1  1  1  1 NA  1  1  1  1 NA NA
+[201] NA  1  1  1  1  1  1 NA  1  1 NA  1  1 NA  1  1 NA  1 NA  1 NA NA NA NA  1
+[226]  1 NA  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1 NA  1  1 NA NA  1  1  1
+[251] NA  1 NA  1  1  1  1  1  1  1  1  1 NA  1 NA NA NA  1  1  1  1 NA NA  1 NA
+[276]  1  1  1 NA NA NA NA NA  1 NA  1 NA NA NA NA NA NA NA  1  1  1 NA  1 NA  1
+[301]  1  1 NA  1
+
+Labels:
+ value label
+     1 White</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Word document</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">read_docx</span>()</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">body_add_flextable</span>(doc, <span class="at">value =</span> ct1)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(doc, <span class="at">target =</span> <span class="st">"crosstable.docx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert race variables to numeric</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data[, <span class="fu">c</span>(<span class="st">"y1rac1"</span>, <span class="st">"y1rac2"</span>, <span class="st">"y1rac3"</span>, <span class="st">"y1rac4"</span>, <span class="st">"y1rac5"</span>)] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(data[, <span class="fu">c</span>(<span class="st">"y1rac1"</span>, <span class="st">"y1rac2"</span>, <span class="st">"y1rac3"</span>, <span class="st">"y1rac4"</span>, <span class="st">"y1rac5"</span>)], <span class="cf">function</span>(x) <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(x)))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the sum of race variables</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>race_sum <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(data[, <span class="fu">c</span>(<span class="st">"y1rac1"</span>, <span class="st">"y1rac2"</span>, <span class="st">"y1rac3"</span>, <span class="st">"y1rac4"</span>, <span class="st">"y1rac5"</span>)], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert race variables to numeric</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y1rac1 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(data<span class="sc">$</span>y1rac1))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y1rac2 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(data<span class="sc">$</span>y1rac2))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y1rac3 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(data<span class="sc">$</span>y1rac3))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y1rac4 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(data<span class="sc">$</span>y1rac4))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y1rac5 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(data<span class="sc">$</span>y1rac5))</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the race_ex variable using case_when()</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">race_ex =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    race_sum <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Multi-Racial"</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    y1rac1 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"American Indian/Alaska Native"</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    y1rac2 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Asian"</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    y1rac3 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Black/African American"</span>,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    y1rac4 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"White"</span>,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    y1rac5 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Native Hawaiian/Other Pacific Islander"</span>,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    y1rac999 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Another Identity Not Listed"</span>,</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summarize the data with our package</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>selected_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"y0age"</span>, <span class="st">"y1sex"</span>, <span class="st">"y1gen"</span>, <span class="st">"race_ex"</span>, <span class="st">"y1rac999"</span>, <span class="st">"y0scr06"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dem_data <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, <span class="at">select =</span> selected_vars)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Factor to see labels</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y0age <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dem_data<span class="sc">$</span>y0age)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y1sex <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y1sex)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y1gen <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y1gen)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y1His <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y1His)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>dem_data<span class="sc">$</span>y0scr06 <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">as_factor</span>(data<span class="sc">$</span>y0scr06)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>table1 <span class="ot">&lt;-</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  dem_data <span class="sc">%&gt;%</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">list</span>(</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>     y0age <span class="sc">~</span> <span class="st">"Age"</span>, </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>      y1gen <span class="sc">~</span> <span class="st">"Gender"</span>, </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>     race_ex <span class="sc">~</span> <span class="st">"Race"</span>,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>      y0scr06 <span class="sc">~</span> <span class="st">"Sexual Orientation"</span>),</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing =</span> <span class="st">"no"</span>,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">list</span>(</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>      y0age <span class="sc">~</span> <span class="st">"continuous2"</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">list</span>(</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({sd})"</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{n} ({p}%)"</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="dv">2</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_header</span>(<span class="at">label =</span> <span class="st">""</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_caption</span>(<span class="st">"*Demographic Table* (N = {N})"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Column(s) y1rac999 are class "haven_labelled". This is an intermediate datastructure not meant for analysis. Convert columns with `haven::as_factor()`, `labelled::to_factor()`, `labelled::unlabelled()`, and `unclass()`. "haven_labelled" value labels are ignored when columns are not converted. Failure to convert may have unintended consequences or result in error.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• https://haven.tidyverse.org/articles/semantics.html</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• https://larmarange.github.io/labelled/articles/intro_labelled.html#unlabelled</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">###</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_flex_table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-cb391d0e{}.cl-cb35f8d6{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cb35f8e0{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cb35f8ea{font-family:'Helvetica';font-size:6.6pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;bottom:3.3pt;}.cl-cb372a9e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cb372aa8{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cb372aa9{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cb372af8{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cb372af9{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:15pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cb372afa{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cb3735de{width:6.616in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb3735df{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb3735e0{width:6.616in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb3735e1{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb3735e8{width:6.616in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb3735f2{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb3735f3{width:6.616in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb3735f4{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb3735fc{width:6.616in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb3735fd{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373606{width:6.616in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373607{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373610{width:6.616in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373611{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373612{width:6.616in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb37361a{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb37361b{width:6.616in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb37361c{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373624{width:6.616in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373625{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373626{width:6.616in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb37362e{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb37362f{width:6.616in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373630{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373631{width:6.616in;background-color:transparent;vertical-align: top;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373638{width:1.109in;background-color:transparent;vertical-align: top;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373639{width:6.616in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb373642{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-cb391d0e"><thead><tr style="overflow-wrap:break-word;"><th class="cl-cb3735de"><p class="cl-cb372a9e"><span class="cl-cb35f8d6"></span></p></th><th class="cl-cb3735df"><p class="cl-cb372aa8"><span class="cl-cb35f8e0">N = 304</span><span class="cl-cb35f8ea">1</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-cb3735e0"><p class="cl-cb372aa9"><span class="cl-cb35f8d6">Age</span></p></td><td class="cl-cb3735e1"><p class="cl-cb372af8"><span class="cl-cb35f8d6"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735e8"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Mean (SD)</span></p></td><td class="cl-cb3735f2"><p class="cl-cb372af8"><span class="cl-cb35f8d6">16.53 (0.89)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735f3"><p class="cl-cb372aa9"><span class="cl-cb35f8d6">What was your sex assigned at birth? (What’s on your birth certificate?)</span></p></td><td class="cl-cb3735f4"><p class="cl-cb372af8"><span class="cl-cb35f8d6"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Male</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">53 (18%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Female</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">248 (82%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Intersex</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">0 (0%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">I don't want to answer this question</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">0 (0%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb373606"><p class="cl-cb372aa9"><span class="cl-cb35f8d6">Gender</span></p></td><td class="cl-cb373607"><p class="cl-cb372af8"><span class="cl-cb35f8d6"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Boy/man</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">47 (16%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Girl/woman</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">96 (32%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Trans</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">1 (0.3%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb373610"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Genderqueer</span></p></td><td class="cl-cb373611"><p class="cl-cb372af8"><span class="cl-cb35f8d6">24 (7.9%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb373612"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Non-binary</span></p></td><td class="cl-cb37361a"><p class="cl-cb372af8"><span class="cl-cb35f8d6">55 (18%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735e0"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Unsure/questioning</span></p></td><td class="cl-cb3735e1"><p class="cl-cb372af8"><span class="cl-cb35f8d6">8 (2.6%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb37361b"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Other (please type in)</span></p></td><td class="cl-cb37361c"><p class="cl-cb372af8"><span class="cl-cb35f8d6">30 (9.9%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735e0"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Trans girl/woman</span></p></td><td class="cl-cb3735e1"><p class="cl-cb372af8"><span class="cl-cb35f8d6">2 (0.7%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb373612"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Trans boy/man</span></p></td><td class="cl-cb37361a"><p class="cl-cb372af8"><span class="cl-cb35f8d6">39 (13%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">I don’t want to answer this question</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">0 (0%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb373624"><p class="cl-cb372aa9"><span class="cl-cb35f8d6">Race</span></p></td><td class="cl-cb373625"><p class="cl-cb372af8"><span class="cl-cb35f8d6"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">American Indian/Alaska Native</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">7 (2.3%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb373612"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Another Identity Not Listed</span></p></td><td class="cl-cb37361a"><p class="cl-cb372af8"><span class="cl-cb35f8d6">18 (5.9%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Asian</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">22 (7.3%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Black/African American</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">54 (18%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Multi-Racial</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">39 (13%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">White</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">163 (54%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb37361b"><p class="cl-cb372aa9"><span class="cl-cb35f8d6">How would you describe yourself? (Select ALL that apply) I don't want to answer this question</span></p></td><td class="cl-cb37361c"><p class="cl-cb372af8"><span class="cl-cb35f8d6"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">1</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">18 (100%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb373626"><p class="cl-cb372aa9"><span class="cl-cb35f8d6">Sexual Orientation</span></p></td><td class="cl-cb37362e"><p class="cl-cb372af8"><span class="cl-cb35f8d6"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735e8"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Heterosexual/straight</span></p></td><td class="cl-cb3735f2"><p class="cl-cb372af8"><span class="cl-cb35f8d6">1 (0.3%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb37361b"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Gay</span></p></td><td class="cl-cb37361c"><p class="cl-cb372af8"><span class="cl-cb35f8d6">41 (13%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Lesbian</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">35 (12%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Bisexual</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">93 (31%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Pansexual</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">68 (22%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Queer</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">35 (12%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Asexual</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">8 (2.6%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Demisexual</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">2 (0.7%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb37362f"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Questioning/Unsure of my sexual orientation</span></p></td><td class="cl-cb373630"><p class="cl-cb372af8"><span class="cl-cb35f8d6">11 (3.6%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb37361b"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Choose to self-identify</span></p></td><td class="cl-cb37361c"><p class="cl-cb372af8"><span class="cl-cb35f8d6">10 (3.3%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735e8"><p class="cl-cb372aa9"><span class="cl-cb35f8d6">Are you Hispanic or Latino/Latina/Latinx?</span></p></td><td class="cl-cb3735f2"><p class="cl-cb372af8"><span class="cl-cb35f8d6"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">No</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">233 (78%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb3735fc"><p class="cl-cb372af9"><span class="cl-cb35f8d6">Yes</span></p></td><td class="cl-cb3735fd"><p class="cl-cb372af8"><span class="cl-cb35f8d6">64 (22%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb373631"><p class="cl-cb372af9"><span class="cl-cb35f8d6">I don't want to answer this question</span></p></td><td class="cl-cb373638"><p class="cl-cb372af8"><span class="cl-cb35f8d6">0 (0%)</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td colspan="2" class="cl-cb373639"><p class="cl-cb372afa"><span class="cl-cb35f8ea">1</span><span class="cl-cb35f8d6">n (%)</span></p></td></tr></tfoot></table></div>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_flex_table</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">save_as_docx</span>(table1, <span class="at">path =</span> <span class="st">"bystander_dem_table.docx"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>ct1 <span class="ot">=</span> <span class="fu">crosstable</span>(dem_data, <span class="fu">c</span>(y1gen), <span class="at">by =</span> <span class="fu">c</span>(y1sex), <span class="at">total=</span><span class="st">"both"</span>, <span class="at">percent_pattern=</span><span class="st">"{n} ({p_row})"</span>, <span class="at">percent_digits=</span><span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_flextable</span>()</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ct1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-cb8f7f46{}.cl-cb8cd232{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cb8cd233{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-cb8dd902{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cb8dd903{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cb8de0b4{width:2.986in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0be{width:2.672in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0bf{width:0.905in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0c0{width:0.99in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0c8{width:0.871in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0c9{width:2.876in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0d2{width:0.506in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0d3{width:1.075in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0dc{width:2.986in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0dd{width:2.672in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0e6{width:0.905in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0e7{width:0.99in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0e8{width:0.871in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0f0{width:2.876in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0f1{width:0.506in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0f2{width:1.075in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0fa{width:2.986in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de0fb{width:2.672in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de104{width:0.905in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de105{width:0.99in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de106{width:0.871in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de10e{width:2.876in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de10f{width:0.506in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de118{width:1.075in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de119{width:2.986in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de11a{width:2.672in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de11b{width:0.905in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de122{width:0.99in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de123{width:0.871in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de12c{width:2.876in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de12d{width:0.506in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cb8de12e{width:1.075in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-cb8f7f46"><thead><tr style="overflow-wrap:break-word;"><th rowspan="2" class="cl-cb8de0b4"><p class="cl-cb8dd902"><span class="cl-cb8cd232">label</span></p></th><th rowspan="2" class="cl-cb8de0be"><p class="cl-cb8dd902"><span class="cl-cb8cd232">variable</span></p></th><th colspan="5" class="cl-cb8de0bf"><p class="cl-cb8dd902"><span class="cl-cb8cd232">What was your sex assigned at birth? (What’s on your birth certificate?)</span></p></th><th rowspan="2" class="cl-cb8de0d3"><p class="cl-cb8dd902"><span class="cl-cb8cd232">Total</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-cb8de0e6"><p class="cl-cb8dd902"><span class="cl-cb8cd232">Male</span></p></th><th class="cl-cb8de0e7"><p class="cl-cb8dd902"><span class="cl-cb8cd232">Female</span></p></th><th class="cl-cb8de0e8"><p class="cl-cb8dd902"><span class="cl-cb8cd232">Intersex</span></p></th><th class="cl-cb8de0f0"><p class="cl-cb8dd902"><span class="cl-cb8cd232">I don't want to answer this question</span></p></th><th class="cl-cb8de0f1"><p class="cl-cb8dd902"><span class="cl-cb8cd232">NA</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td rowspan="12" class="cl-cb8de0fa"><p class="cl-cb8dd903"><span class="cl-cb8cd233">What is your gender? - Selected Choice</span></p></td><td class="cl-cb8de0fb"><p class="cl-cb8dd903"><span class="cl-cb8cd233">Boy/man</span></p></td><td class="cl-cb8de104"><p class="cl-cb8dd903"><span class="cl-cb8cd233">36 (77%)</span></p></td><td class="cl-cb8de105"><p class="cl-cb8dd903"><span class="cl-cb8cd233">11 (23%)</span></p></td><td class="cl-cb8de106"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10e"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10f"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0</span></p></td><td class="cl-cb8de118"><p class="cl-cb8dd903"><span class="cl-cb8cd233">47 (16%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb8de0fb"><p class="cl-cb8dd903"><span class="cl-cb8cd233">Girl/woman</span></p></td><td class="cl-cb8de104"><p class="cl-cb8dd903"><span class="cl-cb8cd233">1 (1%)</span></p></td><td class="cl-cb8de105"><p class="cl-cb8dd903"><span class="cl-cb8cd233">95 (99%)</span></p></td><td class="cl-cb8de106"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10e"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10f"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0</span></p></td><td class="cl-cb8de118"><p class="cl-cb8dd903"><span class="cl-cb8cd233">96 (32%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb8de0fb"><p class="cl-cb8dd903"><span class="cl-cb8cd233">Trans</span></p></td><td class="cl-cb8de104"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de105"><p class="cl-cb8dd903"><span class="cl-cb8cd233">1 (100%)</span></p></td><td class="cl-cb8de106"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10e"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10f"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0</span></p></td><td class="cl-cb8de118"><p class="cl-cb8dd903"><span class="cl-cb8cd233">1 (0.3%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb8de0fb"><p class="cl-cb8dd903"><span class="cl-cb8cd233">Genderqueer</span></p></td><td class="cl-cb8de104"><p class="cl-cb8dd903"><span class="cl-cb8cd233">5 (21%)</span></p></td><td class="cl-cb8de105"><p class="cl-cb8dd903"><span class="cl-cb8cd233">19 (79%)</span></p></td><td class="cl-cb8de106"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10e"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10f"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0</span></p></td><td class="cl-cb8de118"><p class="cl-cb8dd903"><span class="cl-cb8cd233">24 (8%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb8de0fb"><p class="cl-cb8dd903"><span class="cl-cb8cd233">Non-binary</span></p></td><td class="cl-cb8de104"><p class="cl-cb8dd903"><span class="cl-cb8cd233">6 (11%)</span></p></td><td class="cl-cb8de105"><p class="cl-cb8dd903"><span class="cl-cb8cd233">48 (89%)</span></p></td><td class="cl-cb8de106"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10e"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10f"><p class="cl-cb8dd903"><span class="cl-cb8cd233">1</span></p></td><td class="cl-cb8de118"><p class="cl-cb8dd903"><span class="cl-cb8cd233">55 (18%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb8de0fb"><p class="cl-cb8dd903"><span class="cl-cb8cd233">Unsure/questioning</span></p></td><td class="cl-cb8de104"><p class="cl-cb8dd903"><span class="cl-cb8cd233">1 (12%)</span></p></td><td class="cl-cb8de105"><p class="cl-cb8dd903"><span class="cl-cb8cd233">7 (88%)</span></p></td><td class="cl-cb8de106"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10e"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10f"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0</span></p></td><td class="cl-cb8de118"><p class="cl-cb8dd903"><span class="cl-cb8cd233">8 (3%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb8de0fb"><p class="cl-cb8dd903"><span class="cl-cb8cd233">Other (please type in)</span></p></td><td class="cl-cb8de104"><p class="cl-cb8dd903"><span class="cl-cb8cd233">2 (7%)</span></p></td><td class="cl-cb8de105"><p class="cl-cb8dd903"><span class="cl-cb8cd233">28 (93%)</span></p></td><td class="cl-cb8de106"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10e"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10f"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0</span></p></td><td class="cl-cb8de118"><p class="cl-cb8dd903"><span class="cl-cb8cd233">30 (10%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb8de0fb"><p class="cl-cb8dd903"><span class="cl-cb8cd233">Trans girl/woman</span></p></td><td class="cl-cb8de104"><p class="cl-cb8dd903"><span class="cl-cb8cd233">2 (100%)</span></p></td><td class="cl-cb8de105"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de106"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10e"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10f"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0</span></p></td><td class="cl-cb8de118"><p class="cl-cb8dd903"><span class="cl-cb8cd233">2 (1%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb8de0fb"><p class="cl-cb8dd903"><span class="cl-cb8cd233">Trans boy/man</span></p></td><td class="cl-cb8de104"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de105"><p class="cl-cb8dd903"><span class="cl-cb8cd233">38 (100%)</span></p></td><td class="cl-cb8de106"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10e"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de10f"><p class="cl-cb8dd903"><span class="cl-cb8cd233">1</span></p></td><td class="cl-cb8de118"><p class="cl-cb8dd903"><span class="cl-cb8cd233">39 (13%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb8de0fb"><p class="cl-cb8dd903"><span class="cl-cb8cd233">I don’t want to answer this question</span></p></td><td class="cl-cb8de104"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (NA%)</span></p></td><td class="cl-cb8de105"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (NA%)</span></p></td><td class="cl-cb8de106"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (NA%)</span></p></td><td class="cl-cb8de10e"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (NA%)</span></p></td><td class="cl-cb8de10f"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0</span></p></td><td class="cl-cb8de118"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb8de0fb"><p class="cl-cb8dd903"><span class="cl-cb8cd233">NA</span></p></td><td class="cl-cb8de104"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0</span></p></td><td class="cl-cb8de105"><p class="cl-cb8dd903"><span class="cl-cb8cd233">1</span></p></td><td class="cl-cb8de106"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0</span></p></td><td class="cl-cb8de10e"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0</span></p></td><td class="cl-cb8de10f"><p class="cl-cb8dd903"><span class="cl-cb8cd233">1</span></p></td><td class="cl-cb8de118"><p class="cl-cb8dd903"><span class="cl-cb8cd233">2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-cb8de11a"><p class="cl-cb8dd903"><span class="cl-cb8cd233">Total</span></p></td><td class="cl-cb8de11b"><p class="cl-cb8dd903"><span class="cl-cb8cd233">53 (18%)</span></p></td><td class="cl-cb8de122"><p class="cl-cb8dd903"><span class="cl-cb8cd233">248 (82%)</span></p></td><td class="cl-cb8de123"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de12c"><p class="cl-cb8dd903"><span class="cl-cb8cd233">0 (0%)</span></p></td><td class="cl-cb8de12d"><p class="cl-cb8dd903"><span class="cl-cb8cd233">3</span></p></td><td class="cl-cb8de12e"><p class="cl-cb8dd903"><span class="cl-cb8cd233">304 (100%)</span></p></td></tr></tbody></table></div>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Word document</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">read_docx</span>()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>doc <span class="ot">&lt;-</span> <span class="fu">body_add_flextable</span>(doc, <span class="at">value =</span> ct1)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(doc, <span class="at">target =</span> <span class="st">"crosstable.docx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -303,31 +375,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_summary_stats</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    Y1BYreu, Y1BYpru, Y1LTIm,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"common"</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_summary_stats</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    Y1BYreu, Y1BYpru, Y1LTIm,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"common"</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="azihqqsuwh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#azihqqsuwh table {
+<div id="cuyvkkqdgv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cuyvkkqdgv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#azihqqsuwh thead, #azihqqsuwh tbody, #azihqqsuwh tfoot, #azihqqsuwh tr, #azihqqsuwh td, #azihqqsuwh th {
+#cuyvkkqdgv thead, #cuyvkkqdgv tbody, #cuyvkkqdgv tfoot, #cuyvkkqdgv tr, #cuyvkkqdgv td, #cuyvkkqdgv th {
   border-style: none;
 }
 
-#azihqqsuwh p {
+#cuyvkkqdgv p {
   margin: 0;
   padding: 0;
 }
 
-#azihqqsuwh .gt_table {
+#cuyvkkqdgv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -353,12 +425,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#azihqqsuwh .gt_caption {
+#cuyvkkqdgv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#azihqqsuwh .gt_title {
+#cuyvkkqdgv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -370,7 +442,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#azihqqsuwh .gt_subtitle {
+#cuyvkkqdgv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -382,7 +454,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#azihqqsuwh .gt_heading {
+#cuyvkkqdgv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -394,13 +466,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#azihqqsuwh .gt_bottom_border {
+#cuyvkkqdgv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#azihqqsuwh .gt_col_headings {
+#cuyvkkqdgv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -415,7 +487,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#azihqqsuwh .gt_col_heading {
+#cuyvkkqdgv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -435,7 +507,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#azihqqsuwh .gt_column_spanner_outer {
+#cuyvkkqdgv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -447,15 +519,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#azihqqsuwh .gt_column_spanner_outer:first-child {
+#cuyvkkqdgv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#azihqqsuwh .gt_column_spanner_outer:last-child {
+#cuyvkkqdgv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#azihqqsuwh .gt_column_spanner {
+#cuyvkkqdgv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -467,11 +539,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#azihqqsuwh .gt_spanner_row {
+#cuyvkkqdgv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#azihqqsuwh .gt_group_heading {
+#cuyvkkqdgv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -497,7 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#azihqqsuwh .gt_empty_group_heading {
+#cuyvkkqdgv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -512,15 +584,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#azihqqsuwh .gt_from_md > :first-child {
+#cuyvkkqdgv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#azihqqsuwh .gt_from_md > :last-child {
+#cuyvkkqdgv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#azihqqsuwh .gt_row {
+#cuyvkkqdgv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -539,7 +611,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#azihqqsuwh .gt_stub {
+#cuyvkkqdgv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -552,7 +624,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#azihqqsuwh .gt_stub_row_group {
+#cuyvkkqdgv .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -566,15 +638,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#azihqqsuwh .gt_row_group_first td {
+#cuyvkkqdgv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#azihqqsuwh .gt_row_group_first th {
+#cuyvkkqdgv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#azihqqsuwh .gt_summary_row {
+#cuyvkkqdgv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -584,16 +656,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#azihqqsuwh .gt_first_summary_row {
+#cuyvkkqdgv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#azihqqsuwh .gt_first_summary_row.thick {
+#cuyvkkqdgv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#azihqqsuwh .gt_last_summary_row {
+#cuyvkkqdgv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -603,7 +675,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#azihqqsuwh .gt_grand_summary_row {
+#cuyvkkqdgv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -613,7 +685,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#azihqqsuwh .gt_first_grand_summary_row {
+#cuyvkkqdgv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -623,7 +695,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#azihqqsuwh .gt_last_grand_summary_row_top {
+#cuyvkkqdgv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -633,11 +705,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#azihqqsuwh .gt_striped {
+#cuyvkkqdgv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#azihqqsuwh .gt_table_body {
+#cuyvkkqdgv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -646,7 +718,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#azihqqsuwh .gt_footnotes {
+#cuyvkkqdgv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -660,7 +732,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#azihqqsuwh .gt_footnote {
+#cuyvkkqdgv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -669,7 +741,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#azihqqsuwh .gt_sourcenotes {
+#cuyvkkqdgv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -683,7 +755,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#azihqqsuwh .gt_sourcenote {
+#cuyvkkqdgv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -691,63 +763,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#azihqqsuwh .gt_left {
+#cuyvkkqdgv .gt_left {
   text-align: left;
 }
 
-#azihqqsuwh .gt_center {
+#cuyvkkqdgv .gt_center {
   text-align: center;
 }
 
-#azihqqsuwh .gt_right {
+#cuyvkkqdgv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#azihqqsuwh .gt_font_normal {
+#cuyvkkqdgv .gt_font_normal {
   font-weight: normal;
 }
 
-#azihqqsuwh .gt_font_bold {
+#cuyvkkqdgv .gt_font_bold {
   font-weight: bold;
 }
 
-#azihqqsuwh .gt_font_italic {
+#cuyvkkqdgv .gt_font_italic {
   font-style: italic;
 }
 
-#azihqqsuwh .gt_super {
+#cuyvkkqdgv .gt_super {
   font-size: 65%;
 }
 
-#azihqqsuwh .gt_footnote_marks {
+#cuyvkkqdgv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#azihqqsuwh .gt_asterisk {
+#cuyvkkqdgv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#azihqqsuwh .gt_indent_1 {
+#cuyvkkqdgv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#azihqqsuwh .gt_indent_2 {
+#cuyvkkqdgv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#azihqqsuwh .gt_indent_3 {
+#cuyvkkqdgv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#azihqqsuwh .gt_indent_4 {
+#cuyvkkqdgv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#azihqqsuwh .gt_indent_5 {
+#cuyvkkqdgv .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -904,8 +976,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(sjlabelled<span class="sc">::</span><span class="fu">as_label</span>(data<span class="sc">$</span>y1sex), sjlabelled<span class="sc">::</span><span class="fu">as_label</span>(data<span class="sc">$</span>y1genco2))</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tab, <span class="at">caption =</span> <span class="st">"Crosstab of Gender Identity"</span>, <span class="at">align =</span> <span class="st">"c"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(sjlabelled<span class="sc">::</span><span class="fu">as_label</span>(data<span class="sc">$</span>y1sex), sjlabelled<span class="sc">::</span><span class="fu">as_label</span>(data<span class="sc">$</span>y1genco2))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tab, <span class="at">caption =</span> <span class="st">"Crosstab of Gender Identity"</span>, <span class="at">align =</span> <span class="st">"c"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
@@ -950,15 +1022,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy code</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Dummy variable for cis-boy (1 if cis-boy, 0 otherwise)</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>cis_boy <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>y1genco2 <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>cis_boy <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(data<span class="sc">$</span>cis_boy)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Dummy variable for TGD (1 if TGD, 0 otherwise)</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>tgd <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>y1genco2 <span class="sc">==</span> <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>cis_boy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy code</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Dummy variable for cis-boy (1 if cis-boy, 0 otherwise)</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>cis_boy <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>y1genco2 <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>cis_boy <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(data<span class="sc">$</span>cis_boy)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Dummy variable for TGD (1 if TGD, 0 otherwise)</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>tgd <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(data<span class="sc">$</span>y1genco2 <span class="sc">==</span> <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>cis_boy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -967,7 +1039,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>tgd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data<span class="sc">$</span>tgd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1528,29 +1600,29 @@ Warning
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">rcorr</span>(<span class="fu">as.matrix</span>(bys_data))</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'result' is the output from the rcorr function</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> result<span class="sc">$</span>r  <span class="co"># Correlation coefficients</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>p_matrix <span class="ot">&lt;-</span> result<span class="sc">$</span>P    <span class="co"># P-values</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize an empty matrix with the same dimensions as cor_matrix and p_matrix</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>combined_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="fu">nrow</span>(cor_matrix), <span class="at">ncol =</span> <span class="fu">ncol</span>(cor_matrix))</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Populate the combined matrix with formatted strings</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(cor_matrix)) {</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(cor_matrix)) {</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    combined_matrix[i, j] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"r = "</span>, <span class="fu">round</span>(cor_matrix[i, j], <span class="dv">3</span>),</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">", p = "</span>, <span class="fu">formatC</span>(p_matrix[i, j], <span class="at">format =</span> <span class="st">"e"</span>, <span class="at">digits =</span> <span class="dv">2</span>))</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the combined matrix to a dataframe for better readability, if desired</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>combined_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(combined_matrix)</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: Set row and column names to reflect your variables</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(combined_df) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(bys_data)  <span class="co"># Assuming 'data' is your original dataframe</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(combined_df) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(bys_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">rcorr</span>(<span class="fu">as.matrix</span>(bys_data))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'result' is the output from the rcorr function</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> result<span class="sc">$</span>r  <span class="co"># Correlation coefficients</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>p_matrix <span class="ot">&lt;-</span> result<span class="sc">$</span>P    <span class="co"># P-values</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize an empty matrix with the same dimensions as cor_matrix and p_matrix</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>combined_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="fu">nrow</span>(cor_matrix), <span class="at">ncol =</span> <span class="fu">ncol</span>(cor_matrix))</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Populate the combined matrix with formatted strings</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(cor_matrix)) {</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(cor_matrix)) {</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    combined_matrix[i, j] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"r = "</span>, <span class="fu">round</span>(cor_matrix[i, j], <span class="dv">3</span>),</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">", p = "</span>, <span class="fu">formatC</span>(p_matrix[i, j], <span class="at">format =</span> <span class="st">"e"</span>, <span class="at">digits =</span> <span class="dv">2</span>))</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the combined matrix to a dataframe for better readability, if desired</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(combined_matrix)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: Set row and column names to reflect your variables</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(combined_data) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(bys_data)  <span class="co"># Assuming 'data' is your original dataframe</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(combined_data) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(bys_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -1571,6 +1643,20 @@ Note
 </div>
 <section id="byreu-reactive-bystander-intervention" class="level4">
 <h4 class="anchored" data-anchor-id="byreu-reactive-bystander-intervention">BYreu Reactive Bystander Intervention</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y1racc <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(data<span class="sc">$</span>y1racc)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y1alu01L <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(data<span class="sc">$</span>y1alu01L)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y1alu01M <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(data<span class="sc">$</span>y1alu01M)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">"Y1BYreu ~ y0age + y1racc + sexori_group + cis_boy + tgd + y1racc + </span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="st">Y1DPRu + Y1EMOu + Y1HMNm + y1TDVMd + y1TDPMd + Y1ACOMu + </span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="st">y1DanM + y1dno1Lr +</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="st">Y1OSOd + Y1OGId + Y1COMm"</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">sem</span>(model, <span class="at">data =</span> data, <span class="at">missing =</span> <span class="st">"fiml"</span>, <span class="at">fixed.x =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Unstandardized Results</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Standardized results</a></li></ul>
 <div class="tab-content nav-pills">
@@ -1591,7 +1677,7 @@ Important
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6.16 ended normally after 296 iterations
@@ -1831,7 +1917,8 @@ Important
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">standardizedSolution</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>standardized_estimates <span class="ot">&lt;-</span> <span class="fu">standardizedSolution</span>(fit)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>standardized_estimates</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>             lhs op          rhs est.std    se      z pvalue ci.lower ci.upper
@@ -2016,11 +2103,11 @@ Important
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">"Y1BYpru ~ y0age + y1racc + sexori_group + cis_boy + tgd + y1racc + </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="st">Y1DPRu + Y1EMOu + Y1HMNm + y1TDVMd + y1TDPMd + Y1ACOMu + </span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="st">y1DanM + y1dno1Lr +</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="st">Y1OSOd + Y1OGId + Y1COMm"</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">sem</span>(model, <span class="at">data =</span> data, <span class="at">missing =</span> <span class="st">"fiml"</span>, <span class="at">fixed.x =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">"Y1BYpru ~ y0age + y1racc + sexori_group + cis_boy + tgd + y1racc + </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="st">Y1DPRu + Y1EMOu + Y1HMNm + y1TDVMd + y1TDPMd + Y1ACOMu + </span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="st">y1DanM + y1dno1Lr +</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="st">Y1OSOd + Y1OGId + Y1COMm"</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">sem</span>(model, <span class="at">data =</span> data, <span class="at">missing =</span> <span class="st">"fiml"</span>, <span class="at">fixed.x =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
@@ -2043,7 +2130,7 @@ Important
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6.16 ended normally after 327 iterations
@@ -2283,7 +2370,8 @@ Important
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">standardizedSolution</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>standardized_estimates <span class="ot">&lt;-</span> <span class="fu">standardizedSolution</span>(fit)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>standardized_estimates</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>             lhs op          rhs est.std    se      z pvalue ci.lower ci.upper
@@ -2468,11 +2556,11 @@ Important
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">"Y1LTIm ~ y0age + y1racc + sexori_group + cis_boy + tgd + y1racc + </span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="st">Y1DPRu + Y1EMOu + Y1HMNm + y1TDVMd + y1TDPMd + Y1ACOMu + </span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="st">y1DanM + y1dno1Lr +</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="st">Y1OSOd + Y1OGId + Y1COMm"</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">sem</span>(model, <span class="at">data =</span> data, <span class="at">missing =</span> <span class="st">"fiml"</span>, <span class="at">fixed.x =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">"Y1LTIm ~ y0age + y1racc + sexori_group + cis_boy + tgd + y1racc + </span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="st">Y1DPRu + Y1EMOu + Y1HMNm + y1TDVMd + y1TDPMd + Y1ACOMu + </span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="st">y1DanM + y1dno1Lr +</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="st">Y1OSOd + Y1OGId + Y1COMm"</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">sem</span>(model, <span class="at">data =</span> data, <span class="at">missing =</span> <span class="st">"fiml"</span>, <span class="at">fixed.x =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
@@ -2495,7 +2583,7 @@ Important
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6.16 ended normally after 307 iterations
@@ -2735,7 +2823,8 @@ Important
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">standardizedSolution</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>standardized_estimates <span class="ot">&lt;-</span> <span class="fu">standardizedSolution</span>(fit)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>standardized_estimates</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>             lhs op          rhs est.std    se      z pvalue ci.lower ci.upper
